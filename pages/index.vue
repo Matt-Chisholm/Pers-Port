@@ -1,31 +1,34 @@
 <template>
-  <div
-    id="container"
-    class="absolute text-white text-center w-full max-w-2xl px-6"
-    style="top: 50%; transform: translate(-50%, -50%); left: 50%;"
-  >
-    <h1
-      id="christopherLis"
-      class="font-space-mono text-sm uppercase tracking-wide opacity-0"
-      style="transform: translateY(30px)"
+  <div>
+    <canvas ref="canvas"></canvas>
+    <div
+      id="container"
+      class="absolute text-white text-center w-full px-6"
+      style="top: 50%; transform: translate(-50%, -50%); left: 50%;"
     >
-      Matt Chisholm
-    </h1>
-    <p
-      id="oneWithAn"
-      class="font-exo text-4xl opacity-0"
-      style="transform: translateY(30px)"
-    >
-      Full Stack Web Developer
-    </p>
-    <a
-      id="viewWorkBtn"
-      href="https://github.com/Matt-Chisholm"
-      class="border px-4 py-2 rounded-lg text-sm font-space-mono uppercase mt-8 hover:bg-white hover:text-gray-800 inline-block opacity-0"
-      style="transform: translateY(30px)"
-    >
-      Github
-    </a>
+      <h1
+        id="christopherLis"
+        class="font-space-mono text-sm uppercase tracking-wide opacity-0"
+        style="transform: translateY(30px)"
+      >
+        Matt Chisholm
+      </h1>
+      <p
+        id="oneWithAn"
+        class="font-exo text-4xl opacity-0"
+        style="transform: translateY(30px)"
+      >
+        Full Stack Web Developer
+      </p>
+      <a
+        id="viewWorkBtn"
+        href="https://github.com/Matt-Chisholm"
+        class="border px-4 py-2 rounded-lg text-sm font-space-mono uppercase mt-8 hover:bg-white hover:text-gray-800 inline-block opacity-0"
+        style="transform: translateY(30px)"
+      >
+        View Work & Github
+      </a>
+    </div>
   </div>
 </template>
 
@@ -48,7 +51,7 @@ import {
   Float32BufferAttribute,
   Points
 } from 'three'
-import OrbitControls from 'orbit-controls-es6';
+import OrbitControls from 'orbit-controls-es6'
 export default {
   mounted() {
     const dat = require('dat.gui')
@@ -108,10 +111,11 @@ export default {
       0.1,
       1000
     )
-    const renderer = new WebGLRenderer()
+    const renderer = new WebGLRenderer({
+      canvas: this.$refs.canvas
+    })
     renderer.setSize(innerWidth, innerHeight)
     renderer.setPixelRatio(devicePixelRatio)
-    document.body.appendChild(renderer.domElement)
     new OrbitControls(camera, renderer.domElement)
     camera.position.z = 50
     const planeGeometry = new PlaneGeometry(
@@ -275,7 +279,7 @@ export default {
         duration: 1,
         delay: 2,
         onComplete: () => {
-          window.location = 'https://github.com/Matt-Chisholm'
+          this.$router.push('/work')
         }
       })
     })
